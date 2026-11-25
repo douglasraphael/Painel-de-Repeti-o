@@ -103,6 +103,11 @@
 .rx-fase small{font-size:.74rem;color:var(--mu);font-weight:700}
 .rx tr.rx-in td{background:#eef4fc}
 .rx-fase[hidden]{display:none}
+.rx-pane>*{order:3}
+.rx-pane>.rx-fase,.rx-pane>.rx-head,.rx-pane>.rx-how-k{order:0}
+.rx-pane>#cenarios,.rx-pane>#u-cenarios{order:1}
+.rx-ex{margin:0;font-size:.8rem;line-height:1.5;color:var(--fg);background:var(--bg2);border:1px solid var(--ln);border-radius:6px;padding:10px 12px}
+.rx-ex b{color:var(--nv)}
 .rx .rx-how{font-size:.7rem;line-height:1.45;color:var(--mu);margin:2px 0 0;font-weight:600}
 .rx .rx-how::before{content:"ⓘ ";color:var(--nv);font-weight:800}
 .rx p.rx-how.rx-how-k{margin:-6px 2px 0}
@@ -192,11 +197,12 @@
     </div>
 
     <section class="rx-card" id="cenarios">
-      <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % de redução escolhido.</p></div>
+      <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % das repetições que deixam de acontecer.</p></div>
+      <p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha abaixo <b>quantas deixariam de acontecer</b>. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>
       <div class="rx-sim">
         <div class="rx-ctl">
-          <label>Quanto da repetição deixa de acontecer</label>
-          <div class="rx-seg" role="group" aria-label="Redução da repetição"><button type="button" data-v="10">10%</button><button type="button" data-v="20">20%</button><button type="button" data-v="30">30%</button><button type="button" data-v="50">50%</button></div>
+          <label>% das repetições que deixam de acontecer</label>
+          <div class="rx-seg" role="group" aria-label="Redução da repetição"><button type="button" data-v="10">10%</button><button type="button" data-v="15">15%</button><button type="button" data-v="20">20%</button><button type="button" data-v="25">25%</button><button type="button" data-v="30">30%</button><button type="button" data-v="35">35%</button><button type="button" data-v="40">40%</button><button type="button" data-v="50">50%</button><button type="button" data-v="60">60%</button><button type="button" data-v="70">70%</button><button type="button" data-v="80">80%</button><button type="button" data-v="90">90%</button><button type="button" data-v="100">100%</button></div>
           <div style="margin-top:14px">
             <div class="rx-act"><span class="rx-n">1</span><div><b>Protocolos por exame</b><small>Implantar as propostas de ferritina e vitamina B12 e, depois, estender a TSH/T4 livre, vitamina D e hemoglobina glicada.</small></div></div>
             <div class="rx-act"><span class="rx-n">2</span><div><b>Resultado anterior visível na hora do pedido</b><small>Ataca a maior fatia: repetição pedida por outro médico.</small></div></div>
@@ -279,11 +285,12 @@
         </table></div>
       </section>
       <section class="rx-card" id="u-cenarios">
-        <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % de redução escolhido.</p></div>
+        <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % das repetições que deixam de acontecer.</p></div>
+        <p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha abaixo <b>quantas deixariam de acontecer</b>. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>
         <div class="rx-sim">
           <div class="rx-ctl">
-            <label>Quanto da repetição deixa de acontecer</label>
-            <div class="rx-seg" role="group" aria-label="Redução da repetição em urgência e internação"><button type="button" data-k="reducao_u" data-v="10">10%</button><button type="button" data-k="reducao_u" data-v="20">20%</button><button type="button" data-k="reducao_u" data-v="30">30%</button><button type="button" data-k="reducao_u" data-v="50">50%</button></div>
+            <label>% das repetições que deixam de acontecer</label>
+            <div class="rx-seg" role="group" aria-label="Redução da repetição em urgência e internação"><button type="button" data-k="reducao_u" data-v="10">10%</button><button type="button" data-k="reducao_u" data-v="15">15%</button><button type="button" data-k="reducao_u" data-v="20">20%</button><button type="button" data-k="reducao_u" data-v="25">25%</button><button type="button" data-k="reducao_u" data-v="30">30%</button><button type="button" data-k="reducao_u" data-v="35">35%</button><button type="button" data-k="reducao_u" data-v="40">40%</button><button type="button" data-k="reducao_u" data-v="50">50%</button><button type="button" data-k="reducao_u" data-v="60">60%</button><button type="button" data-k="reducao_u" data-v="70">70%</button><button type="button" data-k="reducao_u" data-v="80">80%</button><button type="button" data-k="reducao_u" data-v="90">90%</button><button type="button" data-k="reducao_u" data-v="100">100%</button></div>
             <div style="margin-top:14px">
               <div class="rx-act"><span class="rx-n">1</span><div><b>Bloqueio de pedido duplicado no mesmo atendimento</b><small>Mesmo exame já pedido e ainda sem resultado, ou com resultado de poucas horas.</small></div></div>
               <div class="rx-act"><span class="rx-n">2</span><div><b>Do pronto-socorro para a internação</b><small>Aproveitar os exames do PS na admissão em vez de pedir tudo de novo.</small></div></div>
@@ -462,7 +469,7 @@ dash.calc('u_cenario', {inputs:['u_total'], fn: (total) => { const red = +(dash.
   dash.draw('cen', el => {
     const d = dash.data('cenario'); el.replaceChildren(); if (d.status !== 'ok' || !d.data[0]) return;
     const s = d.data[0];
-    [['Gasto com exames hoje', F.short(s.gasto_ano), ''], ['Gasto com repetição', F.short(s.repeticao_ano), ''], ['Redução de ' + s.reducao + '% da repetição', '− ' + F.short(s.economia_ano), 'rx-br-a'], ['Gasto com exames depois', F.short(s.gasto_novo_ano), '']]
+    [['Gasto com exames hoje', F.short(s.gasto_ano), ''], ['Gasto com repetição (teto)', F.short(s.repeticao_ano), ''], [s.reducao + '% das repetições deixam de acontecer', '− ' + F.short(s.economia_ano), 'rx-br-a'], ['Gasto com exames depois', F.short(s.gasto_novo_ano), '']]
       .forEach(([l, v, c]) => { const r = document.createElement('div'); r.className = 'rx-br ' + c; const a = document.createElement('span'); a.textContent = l; const b = document.createElement('b'); b.textContent = v; r.append(a, b); el.append(r); });
   });
   dash.draw('fase-txt', el => { const f = +(dash.params().fase ?? 9); el.textContent = f === 1 ? '1 mês' : f === 9 ? '10 meses' : f + ' meses'; });
@@ -517,7 +524,7 @@ dash.calc('u_cenario', {inputs:['u_total'], fn: (total) => { const red = +(dash.
   dash.draw('ucen', el => {
     const d = dash.data('u_cenario'); el.replaceChildren(); if (d.status !== 'ok' || !d.data[0]) return;
     const s = d.data[0];
-    [['Gasto com exames hoje', F.short(s.gasto_ano), ''], ['Gasto com repetição', F.short(s.repeticao_ano), ''], ['Redução de ' + s.reducao + '% da repetição', '− ' + F.short(s.economia_ano), 'rx-br-a'], ['Gasto com exames depois', F.short(s.gasto_novo_ano), '']]
+    [['Gasto com exames hoje', F.short(s.gasto_ano), ''], ['Gasto com repetição (teto)', F.short(s.repeticao_ano), ''], [s.reducao + '% das repetições deixam de acontecer', '− ' + F.short(s.economia_ano), 'rx-br-a'], ['Gasto com exames depois', F.short(s.gasto_novo_ano), '']]
       .forEach(([l, v, c]) => { const r = document.createElement('div'); r.className = 'rx-br ' + c; const a = document.createElement('span'); a.textContent = l; const b = document.createElement('b'); b.textContent = v; r.append(a, b); el.append(r); });
   });
   dash.draw('medbars', el => {

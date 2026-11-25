@@ -20,4 +20,6 @@ def apply(s):
     rep("reducao: 20, ordem_med: 'pac', fase: 9, fase_u: 24, reducao_u: 20","reducao: 25, ordem_med: 'pac', fase: 9, fase_u: 24, reducao_u: 25")
     rep("dash.params().reducao ?? 20","dash.params().reducao ?? 25")
     rep("dash.params().reducao_u ?? 20","dash.params().reducao_u ?? 25")
+    css=open('/home/claude/cv_style.css').read()
+    rep('@media (min-width:1000px){.rx{zoom:1.05}}',css+'@media (min-width:1000px){.rx{zoom:1.05}}')
     return s

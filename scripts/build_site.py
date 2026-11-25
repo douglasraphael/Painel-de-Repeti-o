@@ -40,6 +40,8 @@ import patch2
 s=patch2.apply(s)
 import patch3
 s=patch3.apply(s)
+import patch4
+s=patch4.apply(s)
 s=s.replace('<meta name="dash-one-writer">\n<meta name="dash-form" content="dashboard">\n','')
 # dados embutidos
 M={'total':'f_total','exames':'f_exames','med_rank':'f_med_rank','med_total':'f_med_total','faixas':'f_faixas','u_total':'u_total','u_exames':'u_exames','u_areas':'u_areas','u_faixas':'u_faixas'}

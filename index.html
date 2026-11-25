@@ -158,7 +158,7 @@
 .rx-big strong{font-size:clamp(1.9rem,4.4vw,3rem);font-weight:800;line-height:1.05;color:#fff;white-space:nowrap}
 .rx-big em{font-style:normal;font-size:.85rem;color:#cfe0f5}
 .rx-big em b{color:var(--am)}
-.rx-big[hidden]{display:none}
+.rx-big[hidden],.rx-lead[hidden]{display:none}
 .rx-seg button{white-space:nowrap}
 .rx th{white-space:normal;vertical-align:bottom}
 @media (min-width:1000px){
@@ -197,9 +197,11 @@
     <div class="rx-hero-in"><div>
       <span class="rx-eye">Repetição de exames · RED 8</span>
       <h1>Análise executiva de repetição</h1>
-      <p class="rx-lead">Nos eletivos, de cada R$ 100 gastos com exames, <b data-draw="v" data-source="kpi" data-field="por_100" data-row="0" data-fmt="brl">—</b> vão para exames que o mesmo paciente repetiu em até <b data-draw="fase-txt">—</b> — cerca de <b data-draw="v" data-source="kpi" data-field="custo_repeticao_ano" data-row="0" data-fmt="short">—</b> por ano.</p>
+      <p class="rx-lead rx-h-u" hidden>Em urgência e internação, de cada R$ 100 gastos com exames, <b data-draw="v" data-source="u_kpi" data-field="pct_custo" data-fmt="brl">—</b> vão para exames pedidos de novo para o mesmo paciente em até <b data-draw="faseu-txt">—</b> — cerca de <b data-draw="v" data-source="u_kpi" data-field="custo_repeticao_ano" data-fmt="short">—</b> por ano.</p>
+      <p class="rx-lead rx-h-el">Nos eletivos, de cada R$ 100 gastos com exames, <b data-draw="v" data-source="kpi" data-field="por_100" data-row="0" data-fmt="brl">—</b> vão para exames que o mesmo paciente repetiu em até <b data-draw="fase-txt">—</b> — cerca de <b data-draw="v" data-source="kpi" data-field="custo_repeticao_ano" data-row="0" data-fmt="short">—</b> por ano.</p>
     </div>
-    <div class="rx-big"><span>Repetição nos eletivos · por ano</span><strong data-draw="v" data-source="kpi" data-field="custo_repeticao_ano" data-fmt="short">—</strong><em>repetição em até <b data-draw="fase-txt">—</b> · pedidos de jan a out/26</em></div></div>
+    <div class="rx-big rx-h-el"><span>Repetição nos eletivos · por ano</span><strong data-draw="v" data-source="kpi" data-field="custo_repeticao_ano" data-fmt="short">—</strong><em>repetição em até <b data-draw="fase-txt">—</b> · pedidos de jan a out/26</em></div>
+    <div class="rx-big rx-h-u" hidden><span>Repetição em urgência e internação · por ano</span><strong data-draw="v" data-source="u_kpi" data-field="custo_repeticao_ano" data-fmt="short">—</strong><em>repetição em até <b data-draw="faseu-txt">—</b> · pedidos de jan a out/26</em></div></div>
   </section>
 
   <div class="rx-tabs" role="tablist">
@@ -480,7 +482,8 @@ dash.calc('u_cenario', {inputs:['u_total'], fn: (total) => { const red = +(dash.
 
   const show = id => {
     document.querySelectorAll('.rx-pane').forEach(p => { p.hidden = p.id !== id; });
-    document.querySelectorAll('#fase,.rx-big').forEach(b => { b.hidden = id === 'urg'; });
+    document.querySelectorAll('#fase,.rx-h-el').forEach(b => { b.hidden = id === 'urg'; });
+    document.querySelectorAll('.rx-h-u').forEach(b => { b.hidden = id !== 'urg'; });
     document.querySelectorAll('.rx-tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
     dash.setLink(id);
   };
@@ -534,6 +537,7 @@ dash.calc('u_cenario', {inputs:['u_total'], fn: (total) => { const red = +(dash.
       .forEach(([l, v, c]) => { const r = document.createElement('div'); r.className = 'rx-br ' + c; const a = document.createElement('span'); a.textContent = l; const b = document.createElement('b'); b.textContent = v; r.append(a, b); el.append(r); });
   });
   dash.draw('fase-txt', el => { const f = +(dash.params().fase ?? 9); el.textContent = f === 1 ? '1 mês' : f === 9 ? '10 meses' : f + ' meses'; });
+  dash.draw('faseu-txt', el => { const f = +(dash.params().fase_u ?? 24); el.textContent = f === 168 ? '7 dias' : f + ' horas'; });
   dash.draw('fasetab', el => {
     const d = dash.data('fases_tab'); el.replaceChildren(); if (d.status !== 'ok') return;
     const f = +(dash.params().fase ?? 9), lim = {1: 1, 3: 2, 6: 3, 9: 4}[f] || 4;

@@ -25,4 +25,5 @@ Análise executiva da repetição de exames laboratoriais pagos à RED 8, com pe
 ## Arquivos
 
 - `index.html` — o painel, com os dados agregados embutidos (sem nome de paciente).
+- `logos/` — logos da São Cristóvão Saúde e da São Cristóvão Medicina Diagnóstica.
 - `scripts/` — scripts Python usados para gerar os números a partir das planilhas de repasse. As planilhas originais não estão no repositório.

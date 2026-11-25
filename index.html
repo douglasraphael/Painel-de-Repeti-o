@@ -214,7 +214,7 @@
     <div class="rx-fase" id="fase">
       <span>Repetição em até</span>
       <div class="rx-seg" role="group" aria-label="Fase da repetição"><button type="button" data-k="fase" data-v="1">1 mês</button><button type="button" data-k="fase" data-v="3">3 meses</button><button type="button" data-k="fase" data-v="6">6 meses</button><button type="button" data-k="fase" data-v="9">10 meses</button></div>
-      <small>conta como repetição quando o mesmo paciente refaz o mesmo exame dentro desse prazo · muda também a aba Médicos</small>
+      <small>Prazo entre dois pedidos do mesmo exame para o mesmo paciente · aplica-se também à aba Médicos</small>
     </div>
     <section class="rx-pane" id="geral">
     <div class="rx-head" id="indicadores">
@@ -224,10 +224,10 @@
       <div class="rx-kv"><span>Pacientes que repetem</span><strong data-draw="v" data-source="kpi" data-field="pacientes_que_repetem" data-row="0" data-fmt="int">—</strong><small class="rx-sub"><b data-draw="v" data-source="kpi" data-field="pct_pac" data-row="0" data-fmt="pct">—</b> dos <b data-draw="v" data-source="kpi" data-field="pacientes" data-row="0" data-fmt="int">—</b> pacientes</small></div>
       <div class="rx-kv"><span>Concentração</span><strong data-draw="v" data-source="kpi" data-field="pct_top15" data-row="0" data-fmt="pct">—</strong><small class="rx-sub">do custo está em 15 exames</small></div>
     </div>
-    <p class="rx-how rx-how-k">Gasto = soma do valor pago à RED 8 nos 10 meses × 12/10. Repetição = exame refeito pelo mesmo paciente dentro do prazo escolhido acima; o primeiro exame nunca conta. Pacientes = pessoas diferentes (prontuário SAME), cada uma contada uma vez.</p>
+    <p class="rx-how rx-how-k">Valores anualizados (10 meses × 12/10). Repetição: mesmo exame, mesmo paciente, dentro do prazo selecionado; o primeiro pedido não é contado. Pacientes únicos por prontuário.</p>
 
     <section class="rx-card" id="fases">
-      <div class="rx-ch"><h2><i></i>Repetição por fase · por ano</h2><p>Em quanto tempo o mesmo exame volta para o mesmo paciente. Em destaque, as fases incluídas na seleção acima.</p><p class="rx-how">Cada repetição entra em uma fase pelos dias desde o exame anterior do mesmo paciente. Acumulado = soma da fase com as anteriores. % da repetição = custo da fase ÷ custo de todas as fases.</p></div>
+      <div class="rx-ch"><h2><i></i>Repetição por fase · por ano</h2><p>Custo da repetição pelo intervalo entre pedidos. Em destaque, as faixas do prazo selecionado.</p><p class="rx-how">Acumulado: soma das faixas até a linha. %: participação da faixa no custo total da repetição.</p></div>
       <div class="rx-scroll"><table data-source="fases_tab" data-row-key="faixa">
         <thead><tr><th data-field="faixa">Fase</th><th data-field="repeticoes">Exames repetidos</th><th data-field="pacientes">Pacientes</th><th data-field="custo_ano">Custo/ano</th><th data-field="acumulado_ano">Acumulado/ano</th><th data-field="pct">% da repetição</th></tr></thead>
         <tbody data-draw="fasetab"></tbody>
@@ -235,12 +235,12 @@
     </section>
 
     <section class="rx-card" id="ranking">
-      <div class="rx-ch"><h2><i></i>Onde está o custo da repetição · por ano</h2><p>Os 15 exames que mais custam em repetição. Em amarelo, os que já têm proposta de protocolo.</p><p class="rx-how">Por exame: soma do valor de todas as repetições no prazo escolhido, × 12/10.</p></div>
+      <div class="rx-ch"><h2><i></i>Onde está o custo da repetição · por ano</h2><p>15 exames de maior custo de repetição. Em amarelo, exames com protocolo proposto.</p><p class="rx-how">Custo anual das repetições no prazo selecionado.</p></div>
       <div class="rx-bars" data-draw="bars" data-source="exames_tab"></div>
     </section>
 
     <section class="rx-card" id="tabela">
-      <div class="rx-ch"><h2><i></i>Valores por exame</h2><p class="rx-how">Exames = quantos foram feitos no período. Repetidos = quantos deles foram repetição. % repetido = repetidos ÷ exames. "No período" = soma dos 10 meses; "por ano" = × 12/10.</p></div>
+      <div class="rx-ch"><h2><i></i>Valores por exame</h2><p class="rx-how">Período: jan–out/26 (10 meses). Por ano: valor anualizado. % repetido: repetições ÷ total de exames.</p></div>
       <div class="rx-scroll"><table data-source="exames_tab" data-row-key="exame">
         <thead><tr><th data-field="exame">Exame</th><th data-field="exames">Exames</th><th data-field="repeticoes">Repetidos</th><th data-field="pct_repetido">% repetido</th><th data-field="custo_exame">Gasto no período</th><th data-field="custo_repeticao">Repetição no período</th><th data-field="custo_repeticao_ano">Repetição por ano</th></tr></thead>
         <tbody data-draw="tab"></tbody>
@@ -250,21 +250,21 @@
 
     <div class="rx-two">
       <section class="rx-card" id="quem-pede">
-        <div class="rx-ch"><h2><i></i>Quem pede a repetição</h2><p>Médico do exame repetido comparado ao do exame anterior.</p><p class="rx-how">Para cada repetição, olhamos quem pediu o exame anterior do mesmo paciente. Mesmo nome = mesmo médico; nome diferente = outro médico. Valores por ano.</p></div>
+        <div class="rx-ch"><h2><i></i>Quem pede a repetição</h2><p>Origem da repetição: mesmo médico do pedido anterior ou outro médico.</p><p class="rx-how">Valores anualizados.</p></div>
         <div class="rx-stack" data-draw="stack" data-source="kpi"></div>
         <div class="rx-leg">
-          <div><span><i style="background:#04347a"></i>Outro médico<small>Falta de acesso ao resultado anterior</small></span><b data-draw="v" data-source="kpi" data-field="custo_outro_medico_ano" data-row="0" data-fmt="short">—</b></div>
-          <div><span><i style="background:#ffc20e"></i>Mesmo médico<small>Alerta de duplicidade no pedido</small></span><b data-draw="v" data-source="kpi" data-field="custo_mesmo_medico_ano" data-row="0" data-fmt="short">—</b></div>
+          <div><span><i style="background:#04347a"></i>Outro médico<small>Indica falta de visibilidade do resultado anterior</small></span><b data-draw="v" data-source="kpi" data-field="custo_outro_medico_ano" data-row="0" data-fmt="short">—</b></div>
+          <div><span><i style="background:#ffc20e"></i>Mesmo médico<small>Tratável com alerta de duplicidade no pedido</small></span><b data-draw="v" data-source="kpi" data-field="custo_mesmo_medico_ano" data-row="0" data-fmt="short">—</b></div>
         </div>
       </section>
     </div>
 
     <section class="rx-card" id="cenarios">
-      <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % das repetições que deixam de acontecer.</p></div>
-      <p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha um cenário: <b>conservador (10%)</b>, <b>moderado (25%)</b>, <b>otimista (50%)</b> ou <b>agressivo (75%)</b> das repetições deixando de acontecer. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>
+      <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia anual = custo anual da repetição × % evitada.</p></div>
+      <p class="rx-ex"><b>Teto (100%):</b> economia se todas as repetições do prazo fossem evitadas. Como parte é clinicamente necessária, a projeção trabalha com cenários de <b>10% a 75%</b> de redução.</p>
       <div class="rx-sim">
         <div class="rx-ctl">
-          <label>% das repetições que deixam de acontecer</label>
+          <label>Cenário · % da repetição evitada</label>
           <div class="rx-seg" role="group" aria-label="Redução da repetição"><button type="button" data-v="10">Conservador · 10%</button><button type="button" data-v="25">Moderado · 25%</button><button type="button" data-v="50">Otimista · 50%</button><button type="button" data-v="75">Agressivo · 75%</button><button type="button" data-v="100">Teto · 100%</button></div>
           <div style="margin-top:14px">
             <div class="rx-act"><span class="rx-n">1</span><div><b>Protocolos por exame</b><small>Implantar as propostas de ferritina e vitamina B12 e, depois, estender a TSH/T4 livre, vitamina D e hemoglobina glicada.</small></div></div>
@@ -280,7 +280,7 @@
           <strong class="rx-eco" data-draw="v" data-source="cenario" data-field="economia_ano" data-row="0" data-fmt="brl">—</strong>
         </div>
       </div>
-      <p class="rx-note"><b>Atenção:</b> parte da repetição é necessária (tratamento oncológico, gestação, controle de doenças crônicas). Os cenários mostram quanto vale cada fatia reduzida; o alvo realista sai dos protocolos por exame, quando forem implantados.</p>
+      <p class="rx-note"><b>Premissa:</b> parte da repetição é clinicamente necessária (oncologia, gestação, doenças crônicas). A meta será definida pelos protocolos por exame e por auditoria por amostra.</p>
     </section>
 
     <details id="metodo"><summary>Como foi calculado</summary>
@@ -295,16 +295,16 @@
         <div class="rx-kv"><span>Médicos com o dobro da média ou mais</span><strong data-draw="v" data-source="med_kpi" data-field="medicos_acima_2x" data-row="0" data-fmt="int">—</strong><small class="rx-sub">fora da curva</small></div>
         <div class="rx-kv rx-hi"><span>Repetição desses médicos por ano</span><strong data-draw="v" data-source="med_kpi" data-field="custo_acima_2x_ano" data-row="0" data-fmt="short">—</strong><small class="rx-sub"><b data-draw="v" data-source="med_kpi" data-field="pct_acima_2x" data-row="0" data-fmt="pct">—</b> da repetição total</small></div>
       </div>
-      <p class="rx-how rx-how-k">Pacientes atendidos = pessoas diferentes (prontuário SAME) com pelo menos um exame pedido pelo médico no período. Cada paciente conta uma vez, não importa quantos pedidos ou quantas vezes o nome do médico aparece. Entram só médicos com 100 pacientes ou mais. Média = total de repetições ÷ total de pacientes desses médicos.</p>
+      <p class="rx-how rx-how-k">Pacientes atendidos: pacientes únicos por prontuário, independentemente do número de pedidos. Inclui médicos com 100 ou mais pacientes no período. Média: total de repetições ÷ total de pacientes.</p>
 
       <section class="rx-card" id="ranking-medicos">
-        <div class="rx-ch"><h2><i></i>Quem mais repete</h2><p>Contado paciente a paciente: se a Maria fez um hemograma e o médico pediu outro hemograma para ela, isso é 1 repetição na conta desse médico. Depois dividimos pelo número de pacientes que ele atendeu, para quem atende mais não sair na frente só pelo volume. Em vermelho, quantas vezes a média.</p></div>
+        <div class="rx-ch"><h2><i></i>Quem mais repete</h2><p>Repetições por paciente atendido, o que neutraliza o efeito do volume de atendimentos. Em vermelho, médicos com o dobro da média ou mais.</p></div>
         <div class="rx-ctl"><label>Ordenar por</label><div class="rx-seg" role="group" aria-label="Ordenar médicos"><button type="button" data-k="ordem_med" data-v="pac">Repetições por paciente</button><button type="button" data-k="ordem_med" data-v="cpp">Custo por paciente</button><button type="button" data-k="ordem_med" data-v="custo">Custo total por ano</button></div></div>
         <div class="rx-bars" data-draw="medbars" data-source="med_sel"></div>
       </section>
 
       <section class="rx-card" id="tabela-medicos">
-        <div class="rx-ch"><h2><i></i>Comparativo · 30 primeiros</h2><p class="rx-how">Pacientes com repetição = % dos pacientes do médico com pelo menos um exame repetido. Repetições por paciente = repetições pedidas pelo médico ÷ pacientes atendidos. × média = repetições por paciente ÷ média. Custo por paciente = custo da repetição por ano ÷ pacientes atendidos.</p><p>“Do próprio pedido” = o médico pediu de novo um exame que ele mesmo já tinha pedido.</p></div>
+        <div class="rx-ch"><h2><i></i>Comparativo · 30 primeiros</h2><p class="rx-how">Pacientes com repetição: % da carteira com ao menos um exame repetido. × média: comparação com a média dos médicos. Custo por paciente: custo anual da repetição ÷ pacientes atendidos.</p><p>Do próprio pedido: % das repetições em que o pedido anterior foi do mesmo médico.</p></div>
         <div class="rx-scroll"><table data-source="med_sel" data-row-key="medico">
           <thead><tr><th>Médico</th><th>Pacientes atendidos</th><th>Pacientes com repetição</th><th>Repetições</th><th>Repetições por paciente</th><th>× média</th><th>Do próprio pedido</th><th>Custo por paciente/ano</th><th>Custo total/ano</th></tr></thead>
           <tbody data-draw="medtab"></tbody>
@@ -316,7 +316,7 @@
       <div class="rx-fase">
         <span>Repetição em até</span>
         <div class="rx-seg" role="group" aria-label="Fase da repetição em urgência e internação"><button type="button" data-k="fase_u" data-v="6">6 horas</button><button type="button" data-k="fase_u" data-v="24">24 horas</button><button type="button" data-k="fase_u" data-v="72">72 horas</button><button type="button" data-k="fase_u" data-v="168">7 dias</button></div>
-        <small>tempo desde o pedido anterior do mesmo exame</small>
+        <small>Prazo entre dois pedidos do mesmo exame para o mesmo paciente</small>
       </div>
       <div class="rx-head">
         <div class="rx-kv"><span>Gasto com exames por ano</span><strong data-draw="v" data-source="u_kpi" data-field="custo_exame_ano" data-fmt="short">—</strong><small class="rx-sub">urgência + internação</small></div>
@@ -324,35 +324,35 @@
         <div class="rx-kv"><span>Exames repetidos</span><strong data-draw="v" data-source="u_kpi" data-field="repeticoes" data-fmt="int">—</strong><small class="rx-sub"><b data-draw="v" data-source="u_kpi" data-field="por_dia" data-fmt="int">—</b> por dia</small></div>
         <div class="rx-kv"><span>Pacientes que repetem</span><strong data-draw="v" data-source="u_kpi" data-field="pacientes_que_repetem" data-fmt="int">—</strong><small class="rx-sub"><b data-draw="v" data-source="u_kpi" data-field="pct_pac" data-fmt="pct">—</b> dos pacientes</small></div>
         <div class="rx-kv"><span>Internação · Urgência</span><strong data-draw="v" data-source="u_kpi" data-field="int_ano" data-fmt="short">—</strong><small class="rx-sub">urgência: <b data-draw="v" data-source="u_kpi" data-field="urg_ano" data-fmt="short">—</b> por ano</small></div>
-      </div>      <p class="rx-how rx-how-k">Mesmo cálculo dos eletivos, mas o prazo é em horas, pela data e hora do pedido; vale também quando o paciente passa do PS para a internação. Por dia = exames repetidos ÷ dias do período. Valores por ano = 10 meses × 12/10.</p>
+      </div>      <p class="rx-how rx-how-k">Prazo medido em horas (data e hora do pedido), incluindo a passagem do PS para a internação. Valores anualizados (10 meses × 12/10).</p>
       <section class="rx-card" id="u-fases">
-        <div class="rx-ch"><h2><i></i>Repetição por fase · por ano</h2><p>Em quanto tempo o mesmo exame é pedido de novo para o mesmo paciente. Em destaque, as fases incluídas na seleção acima.</p><p class="rx-how">Cada repetição entra em uma fase pelas horas desde o pedido anterior do mesmo exame. Acumulado = soma da fase com as anteriores.</p></div>
+        <div class="rx-ch"><h2><i></i>Repetição por fase · por ano</h2><p>Custo da repetição pelo intervalo entre pedidos. Em destaque, as faixas do prazo selecionado.</p><p class="rx-how">Acumulado: soma das faixas até a linha. %: participação da faixa no custo total da repetição.</p></div>
         <div class="rx-scroll"><table>
           <thead><tr><th>Fase</th><th>Exames repetidos</th><th>Pacientes</th><th>Custo/ano</th><th>Acumulado/ano</th><th>% da repetição</th></tr></thead>
           <tbody data-draw="ufasetab"></tbody>
         </table></div>
       </section>
       <section class="rx-card" id="u-areas">
-        <div class="rx-ch"><h2><i></i>Onde acontece · por ano</h2><p>CTI e UCI repetem por rotina de paciente grave; no pronto-socorro e nas enfermarias a repetição tende a ser mais evitável.</p><p class="rx-how">Área = setor que pediu o exame repetido. % repetidos = exames repetidos ÷ exames da área. Valores por ano.</p></div>
+        <div class="rx-ch"><h2><i></i>Onde acontece · por ano</h2><p>CTI/UCI: repetição majoritariamente protocolar. Pronto-socorro e enfermarias: maior potencial de redução.</p><p class="rx-how">% repetidos: repetições ÷ exames da área. Valores anualizados.</p></div>
         <div class="rx-bars" data-draw="uareas"></div>
       </section>
       <section class="rx-card" id="u-ranking">
-        <div class="rx-ch"><h2><i></i>Exames que mais custam em repetição · por ano</h2><p class="rx-how">Por exame: soma do valor de todas as repetições no prazo escolhido, × 12/10.</p></div>
+        <div class="rx-ch"><h2><i></i>Exames que mais custam em repetição · por ano</h2><p class="rx-how">Custo anual das repetições no prazo selecionado.</p></div>
         <div class="rx-bars" data-draw="ubars"></div>
       </section>
       <section class="rx-card" id="u-tabela">
-        <div class="rx-ch"><h2><i></i>Valores por exame</h2><p class="rx-how">Exames = quantos foram feitos no período. Repetidos = quantos deles foram repetição. % repetido = repetidos ÷ exames. "No período" = soma dos 10 meses; "por ano" = × 12/10.</p></div>
+        <div class="rx-ch"><h2><i></i>Valores por exame</h2><p class="rx-how">Período: jan–out/26 (10 meses). Por ano: valor anualizado. % repetido: repetições ÷ total de exames.</p></div>
         <div class="rx-scroll"><table>
           <thead><tr><th>Exame</th><th>Exames</th><th>Repetidos</th><th>% repetido</th><th>Gasto no período</th><th>Repetição no período</th><th>Repetição por ano</th></tr></thead>
           <tbody data-draw="utab"></tbody>
         </table></div>
       </section>
       <section class="rx-card" id="u-cenarios">
-        <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia por ano = gasto com repetição por ano (no prazo escolhido) × % das repetições que deixam de acontecer.</p></div>
-        <p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha um cenário: <b>conservador (10%)</b>, <b>moderado (25%)</b>, <b>otimista (50%)</b> ou <b>agressivo (75%)</b> das repetições deixando de acontecer. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>
+        <div class="rx-ch"><h2><i></i>Cenários de economia</h2><p class="rx-how">Economia anual = custo anual da repetição × % evitada.</p></div>
+        <p class="rx-ex"><b>Teto (100%):</b> economia se todas as repetições do prazo fossem evitadas. Como parte é clinicamente necessária, a projeção trabalha com cenários de <b>10% a 75%</b> de redução.</p>
         <div class="rx-sim">
           <div class="rx-ctl">
-            <label>% das repetições que deixam de acontecer</label>
+            <label>Cenário · % da repetição evitada</label>
             <div class="rx-seg" role="group" aria-label="Redução da repetição em urgência e internação"><button type="button" data-k="reducao_u" data-v="10">Conservador · 10%</button><button type="button" data-k="reducao_u" data-v="25">Moderado · 25%</button><button type="button" data-k="reducao_u" data-v="50">Otimista · 50%</button><button type="button" data-k="reducao_u" data-v="75">Agressivo · 75%</button><button type="button" data-k="reducao_u" data-v="100">Teto · 100%</button></div>
             <div style="margin-top:14px">
               <div class="rx-act"><span class="rx-n">1</span><div><b>Bloqueio de pedido duplicado no mesmo atendimento</b><small>Mesmo exame já pedido e ainda sem resultado, ou com resultado de poucas horas.</small></div></div>
@@ -367,7 +367,7 @@
             <strong class="rx-eco" data-draw="v" data-source="u_cenario" data-field="economia_ano" data-fmt="brl">—</strong>
           </div>
         </div>
-        <p class="rx-note"><b>Atenção:</b> parte da repetição é protocolo — troponina seriada no PS (0, 3 e 6 horas), gasometria e eletrólitos em paciente grave, exames diários no CTI. O alvo são as repetições que não mudam conduta.</p>
+        <p class="rx-note"><b>Premissa:</b> parte da repetição é protocolar (troponina seriada, gasometria e eletrólitos em paciente grave, rotina de CTI). Foco: repetições sem impacto na conduta.</p>
       </section>
       <details><summary>Como foi calculado</summary>
         <p class="rx-meth">Base: planilhas de repasse da RED 8, pedidos de jan a out/2026 (10 meses), atendimentos de Urgência e Internação; pedidos excluídos retirados. Repetição = o mesmo exame pedido de novo para o mesmo paciente em outro pedido; o primeiro nunca conta. O tempo é medido pela data e hora do pedido, inclusive quando o paciente passa do PS para a internação. Valores por ano = período × 12/10.</p>

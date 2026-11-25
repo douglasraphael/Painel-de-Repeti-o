@@ -5,8 +5,8 @@ def apply(s):
         assert a in s, 'NF: '+a[:80]
         s=s.replace(a,b) if all_ else s.replace(a,b,1)
     rep(".rx-fase[hidden]{display:none}",".rx-fase[hidden]{display:none}\n.rx-pane>*{order:3}\n.rx-pane>.rx-fase,.rx-pane>.rx-head,.rx-pane>.rx-how-k{order:0}\n.rx-pane>#cenarios,.rx-pane>#u-cenarios{order:1}\n.rx-ex{margin:0;font-size:.8rem;line-height:1.5;color:var(--fg);background:var(--bg2);border:1px solid var(--ln);border-radius:6px;padding:10px 12px}\n.rx-ex b{color:var(--nv)}")
-    EX='<p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha um cenário: <b>conservador (10%)</b>, <b>moderado (25%)</b>, <b>otimista (50%)</b> ou <b>arrojado (75%)</b> das repetições deixando de acontecer. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>'
-    P=[(10,'Conservador · 10%'),(25,'Moderado · 25%'),(50,'Otimista · 50%'),(75,'Arrojado · 75%'),(100,'Teto · 100%')]
+    EX='<p class="rx-ex">O gasto com repetição é o <b>teto</b>: quanto se economizaria se <b>todas</b> as repetições do prazo escolhido deixassem de acontecer (100%). Como parte delas é necessária, escolha um cenário: <b>conservador (10%)</b>, <b>moderado (25%)</b>, <b>otimista (50%)</b> ou <b>agressivo (75%)</b> das repetições deixando de acontecer. Exemplo: se a repetição custa R$ 100 mil por ano e <b>50%</b> dos pedidos repetidos deixarem de existir, a economia é <b>R$ 50 mil por ano</b>.</p>'
+    P=[(10,'Conservador · 10%'),(25,'Moderado · 25%'),(50,'Otimista · 50%'),(75,'Agressivo · 75%'),(100,'Teto · 100%')]
     rep("× % de redução escolhido.","× % das repetições que deixam de acontecer.",True)
     rep("<label>Quanto da repetição deixa de acontecer</label>","<label>% das repetições que deixam de acontecer</label>",True)
     old_e='<button type="button" data-v="10">10%</button><button type="button" data-v="20">20%</button><button type="button" data-v="30">30%</button><button type="button" data-v="50">50%</button>'
